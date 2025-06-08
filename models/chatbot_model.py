@@ -5,13 +5,15 @@ from config import RELATED_INTENT_THRESHOLD
 from scene_processor.impl.common_processor import CommonProcessor
 from utils.data_format_utils import extract_continuous_digits, extract_float
 from utils.helpers import send_message
-
+from memory.MemoryStore import MemoryStore
 
 class ChatbotModel:
     def __init__(self, scene_templates: dict):
         self.scene_templates: dict = scene_templates
         self.current_purpose: str = ''
         self.processors = {}
+        self.memoryAPI = MemoryStore().memory
+        self.messageList=[]
 
     @staticmethod
     def load_scene_processor(self, scene_config):
@@ -86,12 +88,18 @@ class ChatbotModel:
             # 不相关时，重新识别意图
             self.recognize_intent(user_input)
         logging.info('current_purpose: %s', self.current_purpose)
-
+        self.messageList.append({"role": "user", "content":user_input })
         if self.current_purpose in self.scene_templates:
             # 根据场景模板调用相应场景的处理逻辑
             self.get_processor_for_scene(self.current_purpose)
             # 调用抽象类process方法
-            return self.processors[self.current_purpose].process(user_input, None)
+            isComplete, result  =self.processors[self.current_purpose].process(user_input, None)
+            if isComplete== False:
+                return result
+            else:
+                result = self.memoryAPI.add(self.messageList, user_id="test");
+                self.messageList.clear()
+                return "已记忆，"+str(result)
         return '未命中场景'
 
 

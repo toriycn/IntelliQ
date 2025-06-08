@@ -18,6 +18,24 @@
       }
     ]
   },
+  "address_memory": {
+    "name": "记录相关的地址信息",
+    "description": "记录相关的地址信息",
+    "parameters": [
+      {
+        "name": "简单地点",
+        "desc": "一个简单的地址描述",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "详细地址",
+        "desc": "详细的地址信息，包括省市县，街道，门牌号等",
+        "type": "string",
+        "required": true
+      }
+    ]
+  },
   "hotel_booking": {
     "name": "订酒店",
     "description": "订酒店的服务",

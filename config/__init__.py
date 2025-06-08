@@ -5,9 +5,9 @@ DEBUG = True
 # MODEL ------------------------------------------------------------------------
 
 # 模型支持OpenAI规范接口
-GPT_URL = 'https://api.openai.com/v1/chat/completions'
-MODEL = 'gpt-3.5-turbo'
-API_KEY = 'sk-xxxxxx'
+GPT_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions'
+MODEL = 'qwen-turbo-latest'
+API_KEY = 'sk-8a1ed1b559ce48a589da5e6c671882a5'
 SYSTEM_PROMPT = 'You are a helpful assistant.'
 
 # MODEL ------------------------------------------------------------------------
